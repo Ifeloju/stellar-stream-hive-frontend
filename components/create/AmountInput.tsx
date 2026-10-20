@@ -75,6 +75,7 @@ export function AmountInput({ amount, onAmountChange, token, onTokenChange, onLo
             className={`input-field flex-1 ${!amountIsValid ? "border-danger" : ""}`}
           />
           <select
+            aria-label="Token"
             value={isCustomToken ? "custom" : "xlm"}
             onChange={(e) => {
               if (e.target.value === "xlm") {
