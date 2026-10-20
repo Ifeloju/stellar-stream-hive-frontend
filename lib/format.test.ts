@@ -83,6 +83,32 @@ describe("shortenAddress", () => {
     expect(shortenAddress("GABC")).toBe("GABC");
     expect(shortenAddress("")).toBe("");
   });
+
+  it("shortens with lead=6, trail=6", () => {
+    // addr is 56 chars; slices [0,6] and [-6] = "GAAZI4" and "OCCWN7"
+    expect(shortenAddress(addr, 6, 6)).toBe("GAAZI4…OCCWN7");
+  });
+
+  it("shortens with lead=0, trail=4", () => {
+    // lead=0 means no leading chars, only trailing shown after ellipsis
+    expect(shortenAddress(addr, 0, 4)).toBe("…CWN7");
+  });
+
+  it("returns the address unchanged when it is exactly at the shortening threshold", () => {
+    // threshold = lead + trail + 3; address of exactly that length is NOT shortened
+    // default lead=4, trail=4 → threshold = 11; a string of length 11 is returned as-is
+    const threshold = 4 + 4 + 3; // 11
+    const exact = "GABCDEFGHIJ"; // length 11
+    expect(exact.length).toBe(threshold);
+    expect(shortenAddress(exact)).toBe(exact);
+  });
+
+  it("shortens an address one character above the threshold", () => {
+    // length 12 (threshold + 1) must be shortened with default lead=4, trail=4
+    const aboveThreshold = "GABCDEFGHIJK"; // length 12
+    expect(aboveThreshold.length).toBe(4 + 4 + 3 + 1);
+    expect(shortenAddress(aboveThreshold)).toBe("GABC…HIJK");
+  });
 });
 
 describe("explorer urls", () => {
