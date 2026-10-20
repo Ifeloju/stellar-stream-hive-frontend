@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/layout/NavBar";
 import { Footer } from "@/components/layout/Footer";
+import { MAIN_CONTENT_ID, SkipLink } from "@/components/layout/SkipLink";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
@@ -28,8 +29,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable} dark`}>
       <body className="flex min-h-screen flex-col bg-background font-sans text-white">
+        <SkipLink />
         <NavBar />
-        <main className="flex-1">{children}</main>
+        <main id={MAIN_CONTENT_ID} tabIndex={-1} className="flex-1 focus:outline-none">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
