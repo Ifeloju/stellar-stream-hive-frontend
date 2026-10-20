@@ -32,3 +32,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# vitest
+*.snap
+__snapshots__/
+.vitest-cache/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
