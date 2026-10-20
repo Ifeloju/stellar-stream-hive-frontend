@@ -7,6 +7,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["lib/**/*.test.ts", "hooks/**/*.test.ts"],
+    setupFiles: ["./vitest.setup.ts"],
+    include: ["lib/**/*.test.ts", "hooks/**/*.test.ts", "components/**/*.test.tsx"],
+    environmentMatchGlobs: [["components/**/*.test.tsx", "jsdom"]],
   },
 });
