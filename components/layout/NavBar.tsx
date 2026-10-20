@@ -29,6 +29,7 @@ export function NavBar() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={pathname === link.href ? "page" : undefined}
               className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition ${
                 pathname === link.href ? "bg-surface text-white" : "text-muted hover:text-white"
               }`}
@@ -68,6 +69,7 @@ export function NavBar() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
+              aria-current={pathname === link.href ? "page" : undefined}
               className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                 pathname === link.href ? "bg-surface text-white" : "text-muted hover:text-white"
               }`}
