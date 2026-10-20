@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ConnectButton } from "@/components/wallet/ConnectButton";
@@ -12,9 +12,26 @@ const LINKS = [
   { href: "/receiving", label: "Receiving" },
 ];
 
+const MOBILE_MENU_ID = "mobile-nav-menu";
+
 export function NavBar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        toggleRef.current?.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
@@ -42,11 +59,13 @@ export function NavBar() {
           <NetworkBadge />
           <ConnectButton />
           <button
+            ref={toggleRef}
             type="button"
             onClick={() => setMobileOpen((o) => !o)}
             className="rounded-lg border border-border p-2 text-muted hover:text-white md:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileOpen}
+            aria-controls={MOBILE_MENU_ID}
           >
             {mobileOpen ? (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -62,7 +81,7 @@ export function NavBar() {
       </div>
 
       {mobileOpen && (
-        <nav className="flex flex-col gap-1 border-t border-border px-4 py-3 md:hidden">
+        <nav id={MOBILE_MENU_ID} className="flex flex-col gap-1 border-t border-border px-4 py-3 md:hidden">
           {LINKS.map((link) => (
             <Link
               key={link.href}
