@@ -156,3 +156,23 @@ describe("ledger/time estimation", () => {
     expect(dateToEstimatedLedger(pastDate, reference)).toBe(998);
   });
 });
+
+describe("dateToEstimatedLedger", () => {
+  const reference = { ledger: 5_000, timestampMs: Date.UTC(2026, 0, 1) };
+  const at = (seconds: number) => new Date(reference.timestampMs + seconds * 1000);
+
+  it("rounds a date 12 seconds ahead to 2 ledgers", () => {
+    // 12s / 5s per ledger = 2.4 ledgers, which rounds to 2.
+    expect(dateToEstimatedLedger(at(12), reference)).toBe(5_002);
+  });
+
+  it("rounds a date 12.5 seconds ahead up to the next ledger", () => {
+    // 12.5s / 5s per ledger = 2.5 ledgers; Math.round breaks the tie upwards.
+    expect(dateToEstimatedLedger(at(12.5), reference)).toBe(5_003);
+  });
+
+  it("rounds a date 12 seconds behind to 2 ledgers earlier", () => {
+    // -12s / 5s per ledger = -2.4 ledgers, which rounds to -2.
+    expect(dateToEstimatedLedger(at(-12), reference)).toBe(4_998);
+  });
+});

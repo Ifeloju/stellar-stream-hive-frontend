@@ -4,6 +4,9 @@ Thanks for your interest in contributing! This repo is the Next.js frontend for 
 Hive. Contributions of all sizes are welcome — bug fixes, new components, accessibility
 improvements, documentation, and design polish.
 
+By participating in this project you agree to abide by our
+[Code of Conduct](./CODE_OF_CONDUCT.md).
+
 ## Repository layout
 
 See the "Project structure" section of [`README.md`](./README.md) for a map of `app/`,

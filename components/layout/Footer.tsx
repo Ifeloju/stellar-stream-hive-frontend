@@ -20,6 +20,7 @@ export function Footer() {
                   className="underline transition hover:text-white"
                 >
                   Stream contract
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </>
             )}
@@ -33,6 +34,7 @@ export function Footer() {
             className="transition hover:text-white"
           >
             Contracts
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a
             href="https://github.com/Stellar-Hive/stellar-stream-hive-api"
@@ -41,6 +43,7 @@ export function Footer() {
             className="transition hover:text-white"
           >
             API
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a
             href="https://github.com/Stellar-Hive/stellar-stream-hive-frontend"
@@ -49,6 +52,7 @@ export function Footer() {
             className="transition hover:text-white"
           >
             Frontend
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
       </div>

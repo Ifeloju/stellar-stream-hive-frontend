@@ -156,6 +156,7 @@ export default function StreamDetailPage({ params }: { params: { id: string } })
                 className="text-accent underline"
               >
                 View on Stellar Expert
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
           )}
@@ -169,6 +170,7 @@ export default function StreamDetailPage({ params }: { params: { id: string } })
                 className="text-accent underline"
               >
                 View on Stellar Expert
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
           )}
@@ -211,11 +213,12 @@ function AddressRow({ label, address }: { label: string; address: string }) {
           href={stellarExpertAccountUrl(address, STELLAR_EXPERT_NETWORK)}
           target="_blank"
           rel="noreferrer"
-          className="font-mono text-accent hover:underline"
+          className="text-accent underline"
         >
           {shortenAddress(address)}
+          <span className="sr-only"> (opens in a new tab)</span>
         </a>
-        <CopyButton value={address} />
+        <CopyButton value={address} label="Copy address" />
       </div>
     </div>
   );
@@ -225,7 +228,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="mb-2 flex items-center justify-between text-sm last:mb-0">
       <span className="text-muted">{label}</span>
-      <span className="font-medium">{value}</span>
+      <span>{value}</span>
     </div>
   );
 }

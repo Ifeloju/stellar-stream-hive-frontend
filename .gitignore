@@ -33,16 +33,20 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# vitest
-*.snap
+# Test artifacts
 __snapshots__/
-.vitest-cache/
+*.snap
+coverage/
+.nyc_output/
 
-# IDE / editor
-.idea/
-.vscode/
+# Editor / OS
+Thumbs.db
 *.swp
 *.swo
 
-# OS
-Thumbs.db
+# IDE
+.idea/
+*.iml
+
+# Misc
+*.log
