@@ -74,9 +74,16 @@ export function StreamTimeline({
   const nowPct = pct(currentLedger);
   const cliffPct = cliffLedger !== undefined ? pct(cliffLedger) : null;
 
+  const nowPctRounded = Math.floor(nowPct);
+  const cliffPctRounded = cliffPct !== null ? Math.floor(cliffPct) : null;
+  const ariaLabel =
+    cliffPctRounded !== null
+      ? `Stream is ${nowPctRounded}% through; cliff at ${cliffPctRounded}%`
+      : `Stream is ${nowPctRounded}% through`;
+
   return (
     <div className="w-full">
-      <div className="relative h-3 w-full rounded-full bg-border">
+      <div className="relative h-3 w-full rounded-full bg-border" role="img" aria-label={ariaLabel}>
         <div
           className="absolute inset-y-0 left-0 rounded-full bg-primary/30"
           style={{ width: `${nowPct}%` }}
