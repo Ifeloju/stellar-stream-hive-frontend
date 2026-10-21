@@ -13,6 +13,16 @@ application.
 | [`stellar-stream-hive-api`](https://github.com/Stellar-Hive/stellar-stream-hive-api) | Indexer/registry API used for stats and stream listings |
 | `stellar-stream-hive-frontend` (this repo) | Next.js web app |
 
+## Screenshots
+
+Captured against testnet with throwaway test accounts — no real addresses, balances, or
+transaction hashes. See [`docs/screenshots/README.md`](docs/screenshots/README.md) for the
+capture steps and the full expected set; the images below are pending capture.
+
+| The live, ticking balance | Create a stream | Streams you're sending |
+| --- | --- | --- |
+| ![Receiving balance](docs/screenshots/receiving-balance.png) | ![Create stream form](docs/screenshots/streams-new.png) | ![Sending list](docs/screenshots/sending-list.png) |
+
 ## The signature feature: LiveBalance
 
 The core of the product is watching a recipient's withdrawable balance tick upward in real
