@@ -186,31 +186,24 @@ function CreateStreamFields({ onReset }: { onReset: () => void }) {
 
         {!wallet.isConnected ? (
           <button type="button" onClick={wallet.connect} disabled={wallet.isConnecting} className="btn-primary w-full">
-            {wallet.isConnecting ? (
-              <>
-                <Spinner size="sm" /> Connecting…
-              </>
-            ) : (
-              "Connect wallet to create stream"
-            )}
+            {wallet.isConnecting ? <Spinner label="Connecting" /> : "Connect wallet to continue"}
           </button>
         ) : (
           <button type="button" onClick={handleSubmit} disabled={!canSubmit || isBusy} className="btn-primary w-full">
-            {isBusy ? (
-              <>
-                <Spinner size="sm" />
-                Creating stream…
-              </>
-            ) : (
-              "Create Stream"
-            )}
+            {isBusy ? <Spinner label="Creating stream" /> : "Create stream"}
           </button>
         )}
       </div>
 
-      <div className="lg:sticky lg:top-24 lg:self-start">
-        <StreamPreview amount={amount} token={token} startDate={startDate} endDate={endDate} recipient={recipient} />
-      </div>
+      <StreamPreview
+        recipient={recipient}
+        amount={amount}
+        token={token}
+        startDate={startDate}
+        cliffDate={cliffDate}
+        endDate={endDate}
+        cancellable={cancellable}
+      />
     </div>
   );
 }
