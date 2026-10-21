@@ -173,4 +173,13 @@ describe("mapRawStream", () => {
     expect(s.totalAmount).toBe("5");
     expect(s.withdrawnAmount).toBe("1");
   });
+  it.each<[string | string[], "completed" | "cancelled"]>([
+    ["Completed", "completed"],
+    [["Completed"], "completed"],
+    ["Cancelled", "cancelled"],
+    [["Cancelled"], "cancelled"],
+  ])("maps contract status variant %#", (status, expected) => {
+    const s = mapRawStream("3", { ...raw, status });
+    expect(s.status).toBe(expected);
+  });
 });

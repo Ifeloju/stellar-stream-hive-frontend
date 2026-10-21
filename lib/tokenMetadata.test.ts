@@ -23,6 +23,10 @@ describe("sanitizeSymbol", () => {
     expect(sanitizeSymbol("U​S\u0000DC")).toBe("USDC");
     expect(sanitizeSymbol("⁦USDC⁩")).toBe("USDC");
   });
+  it("strips U+202E right-to-left override and U+200B zero-width space", () => {
+    expect(sanitizeSymbol(`US\u202EDC`)).toBe("USDC");
+    expect(sanitizeSymbol(`U\u200BSDC`)).toBe("USDC");
+  });
   it("caps the length", () => {
     expect(sanitizeSymbol("A".repeat(50))).toHaveLength(12);
   });

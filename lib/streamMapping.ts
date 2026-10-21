@@ -165,7 +165,9 @@ function variantName(status: string | string[]): string {
 }
 
 export function deriveOnChainStatus(raw: RawStreamRecord, currentLedger?: number): StreamStatus {
-  if (variantName(raw.status) === "Cancelled") return "cancelled";
+  const status = variantName(raw.status);
+  if (status === "Cancelled") return "cancelled";
+  if (status === "Completed") return "completed";
   if (currentLedger === undefined) return "active";
   if (currentLedger < raw.start_ledger) return "scheduled";
   if (currentLedger >= raw.end_ledger) return "completed";
