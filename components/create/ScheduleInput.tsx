@@ -150,7 +150,11 @@ export function ScheduleInput({
         </label>
         {hasCliff && (
           <div className="mt-2">
+            <label className="sr-only" htmlFor="cliff-date">
+              Cliff date
+            </label>
             <input
+              id="cliff-date"
               type="datetime-local"
               value={toLocalInputValue(cliffDate ?? startDate)}
               onChange={(e) => e.target.value && onCliffDateChange(new Date(e.target.value))}
