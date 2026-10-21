@@ -24,6 +24,14 @@ describe("checkAmount", () => {
     expect(base("7", 0)).toBe(7n);
   });
 
+  it("handles 0-decimal tokens correctly", () => {
+    // whole numbers are accepted and return base units equal to the integer value
+    expect(checkAmount("5", 0)).toEqual({ ok: true, baseUnits: 5n });
+    // any fractional part, even '.0', is rejected with the no-decimal-places message
+    expect(checkAmount("5.0", 0)).toEqual({ ok: false, reason: "This token has no decimal places; enter a whole number." });
+    expect(checkAmount("5.1", 0)).toEqual({ ok: false, reason: "This token has no decimal places; enter a whole number." });
+  });
+
   it("rejects more fractional digits than the token supports instead of silently truncating", () => {
     const r = checkAmount("1.123456789", 7);
     expect(r).toEqual({ ok: false, reason: "This token supports at most 7 decimal places." });
