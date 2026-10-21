@@ -58,6 +58,9 @@ export function AmountInput({ amount, onAmountChange, token, onTokenChange, onLo
   const amountError = amountCheck && !amountCheck.ok ? amountCheck.reason : null;
   const amountIsValid = amountError === null;
 
+  const contractIdInvalid = token.contractId !== "" && !isValidStellarAddress(token.contractId, "contract");
+  const contractIdError = contractIdInvalid ? "Enter a valid Stellar contract ID." : null;
+
   return (
     <div className="space-y-4">
       <div>
@@ -72,9 +75,12 @@ export function AmountInput({ amount, onAmountChange, token, onTokenChange, onLo
             value={amount}
             onChange={(e) => onAmountChange(e.target.value)}
             placeholder="0.00"
+            aria-invalid={!amountIsValid}
+            aria-describedby={amountError ? "amount-error" : undefined}
             className={`input-field flex-1 ${!amountIsValid ? "border-danger" : ""}`}
           />
           <select
+            aria-label="Token"
             value={isCustomToken ? "custom" : "xlm"}
             onChange={(e) => {
               if (e.target.value === "xlm") {
@@ -89,7 +95,11 @@ export function AmountInput({ amount, onAmountChange, token, onTokenChange, onLo
             <option value="custom">Custom token</option>
           </select>
         </div>
-        {amountError && <p className="mt-1.5 text-xs text-danger">{amountError}</p>}
+        {amountError && (
+          <p id="amount-error" className="mt-1.5 text-xs text-danger">
+            {amountError}
+          </p>
+        )}
       </div>
 
       {isCustomToken && (
@@ -105,10 +115,15 @@ export function AmountInput({ amount, onAmountChange, token, onTokenChange, onLo
               onChange={(e) => onTokenChange({ ...token, contractId: e.target.value.trim() })}
               placeholder="C..."
               spellCheck={false}
-              className={`input-field font-mono text-sm ${
-                token.contractId && !isValidStellarAddress(token.contractId, "contract") ? "border-danger" : ""
-              }`}
+              aria-invalid={contractIdInvalid}
+              aria-describedby={contractIdError ? "token-contract-error" : undefined}
+              className={`input-field font-mono text-sm ${contractIdInvalid ? "border-danger" : ""}`}
             />
+            {contractIdError && (
+              <p id="token-contract-error" className="mt-1.5 text-xs text-danger">
+                {contractIdError}
+              </p>
+            )}
             {detection === "checking" && <p className="mt-1.5 text-xs text-muted">Reading token details from the contract…</p>}
             {detected && (
               <p className="mt-1.5 text-xs text-primary">
