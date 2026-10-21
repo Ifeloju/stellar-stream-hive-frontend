@@ -72,3 +72,22 @@ describe("checkRecipientNotSender", () => {
     expect(checkRecipientNotSender("GABC", null)).toEqual({ ok: true });
   });
 });
+
+// ─── Issue #35: checkAmount — table-driven rejection tests ───────────────────
+
+describe("checkAmount — explicit rejection reasons for common invalid formats", () => {
+  const cases: [string, string][] = [
+    ["0x10", "Enter a valid, non-negative number."],
+    ["1e3",  "Enter a valid, non-negative number."],
+    ["1,000", "Enter a valid, non-negative number."],
+    ["+5",  "Enter a valid, non-negative number."],
+  ];
+
+  it.each(cases)("rejects %j with reason %j", (input, expectedReason) => {
+    const result = checkAmount(input, 7);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toBe(expectedReason);
+    }
+  });
+});
