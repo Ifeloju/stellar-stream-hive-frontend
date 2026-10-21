@@ -30,22 +30,28 @@ export function CopyButton({ value, label = "Copy", className = "" }: CopyButton
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-muted transition hover:bg-surface-hover hover:text-white ${className}`}
-      aria-label={label}
-    >
-      {copied ? (
-        <>
-          <CheckIcon /> Copied
-        </>
-      ) : (
-        <>
-          <CopyIcon /> {label}
-        </>
-      )}
-    </button>
+    <span className="inline-flex">
+      <button
+        type="button"
+        onClick={handleCopy}
+        className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-muted transition hover:bg-surface-hover hover:text-white ${className}`}
+        aria-label={label === "Copy" ? "Copy to clipboard" : label}
+      >
+        {copied ? (
+          <>
+            <CheckIcon /> Copied
+          </>
+        ) : (
+          <>
+            <CopyIcon /> {label}
+          </>
+        )}
+      </button>
+      {/* Announces the result to screen readers; the visible label alone is not announced on change. */}
+      <span role="status" aria-live="polite" className="sr-only">
+        {copied ? "Copied to clipboard" : ""}
+      </span>
+    </span>
   );
 }
 
